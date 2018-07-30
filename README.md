@@ -23,10 +23,13 @@ $ cd telegram-channel-scraper
 $ npm i
 ```
 
-Fill in `.env.example` then rename to `.env`
+Fill in `.env.example` then rename to `.env` 
+ 
+The telegram_api_id and telegram_api_hash values can be obtained here: [https://my.telegram.org/](https://my.telegram.org/)
 
 
 ## Usage
+
 
 Make sure your in a telegram channel or create your own one to test.
 
