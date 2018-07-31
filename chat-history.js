@@ -20,7 +20,7 @@ const chatHistory = async (chat) => {
   let lastIdofMsgs = '';
 
   const max = config.telegram.msgHistory.maxMsg
-  const limit = config.telegram.msgHistory.limit
+  const limit = config.telegram.msgHistory.limit || 99
   let offsetId = 0
   let full = [],
     messages = [];
