@@ -32,7 +32,7 @@ const chatHistory = async (chat) => {
         channel_id: chat.id,
         access_hash: chat.access_hash
       },
-      max_id: offsetId,
+      max_id: -offsetId,
       offset: -full.length,
       limit
     })
@@ -49,7 +49,7 @@ const chatHistory = async (chat) => {
 
 
   const showNew = full.filter(({ id }) => id > lastIdofMsgs)
-  const noRepeats = uniqueArray(showNew)
+  const noRepeats = uniqueArray(showNew, 'id')
   const usersMsg = noRepeats.filter(filterUsersMessages)
   
   if (usersMsg.length>0){
@@ -81,9 +81,9 @@ const printMessages = (messages) => {
   formatted.forEach(e => console.log(e))
 }
 
-const uniqueArray = (arrArg) => {
-  return arrArg.filter((elem, pos, arr) => {
-    return arr.indexOf(elem) == pos;
+const uniqueArray = function(myArr, prop) {
+  return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
   });
 }
 const filterLastDay = ({ date }) => new Date(date * 1e3) > dayRange()
