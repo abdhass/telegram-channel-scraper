@@ -8,8 +8,8 @@ const config = {
         storage: 'storage/telegram.json',
         devServer: false,
         msgHistory: {
-            maxMsg: 400,
-            limit: 0,
+            maxMsg: 100,
+            limit: 50,
         },
         getChat: {
             limit: 50
