@@ -17,7 +17,7 @@ const getChat = async () => {
 }
 
 const chatHistory = async (chat) => {
-  let lastIdofMsgs = '';
+  let lastIdofMsgs = await db.getLastMsgId();
 
   const max = config.telegram.msgHistory.maxMsg
   const limit = config.telegram.msgHistory.limit || 99
@@ -26,7 +26,6 @@ const chatHistory = async (chat) => {
     messages = [];
 
   do {
-    lastIdofMsgs = await db.getLastMsgId();
     let history = await telegram('messages.getHistory', {
       peer: {
         _: 'inputPeerChannel',
