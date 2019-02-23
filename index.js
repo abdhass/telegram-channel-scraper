@@ -1,13 +1,15 @@
 
 const { getChat, chatHistory } = require('./chat-history')
 const db = require('./utils/db');
-const login = require('./utils/node-storage');
+const {checkLogin} = require('./utils/node-storage');
 
 const run = async (chat) => {
   await chatHistory(chat)
 }
 
-const checks = async () => {
+const start = async () => {
+  await checkLogin();
+
   let chat = await db.getChat();
 
   if (!chat) {
@@ -21,4 +23,4 @@ const checks = async () => {
   }, 2000);
 }
 
-checks()
+start()

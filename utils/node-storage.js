@@ -52,7 +52,8 @@ const askForCode = () => {
 const login = async (client, phone) => {
   const { phone_code_hash } = await client('auth.sendCode', {
     phone_number  : phone.num,
-    current_number: false,
+    sms_type: 5,
+    current_number: true,
     api_id        : config.api_id,
     api_hash      : config.api_hash
   })
@@ -78,11 +79,15 @@ const getDialogs = async () => {
 
 // First check if we are already signed in (if credentials are stored). If we
 // are logged in, execution continues, otherwise the login process begins.
-(async function() {
+checkLogin = async function() {
 	if (!(await app.storage.get('signedin'))) {
     console.log('not signed in')
 
-		await login(client, phone).catch(console.error)
+    try{
+      await login(client, phone)
+    }catch(err){
+      console.error(err);
+    }
 
     console.log('signed in successfully')
 		app.storage.set('signedin', true)
@@ -90,4 +95,8 @@ const getDialogs = async () => {
     console.log('already signed in')
   }
   return
-})()
+}
+
+module.exports = {
+  checkLogin,
+}
