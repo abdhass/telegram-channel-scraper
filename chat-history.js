@@ -74,7 +74,6 @@ const sendToServer = async (messages) => {
 	messages.forEach(m => {
 		sent.push(m.id)
 	});
-	console.log(sent);
   const response = await fetch(config.server,
     {
       method: 'POST',
