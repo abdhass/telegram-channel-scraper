@@ -65,11 +65,20 @@ const chatHistory = async (chat) => {
   console.log( `${hours}:${mins} - [${lastIdofMsgs}]`)
 }
 
+let sent = []
+
 const sendToServer = async (messages) => {
+	let toPush = messages.filter(m => {
+		return sent.indexOf( m ) < 0;
+	})
+	messages.forEach(m => {
+		sent.push(m.id)
+	});
+	console.log(sent);
   const response = await fetch(config.server,
     {
       method: 'POST',
-      body: JSON.stringify(messages),
+      body: JSON.stringify(toPush),
       headers: { "Content-Type": "application/json" }
     })
   const json = await response.json();
